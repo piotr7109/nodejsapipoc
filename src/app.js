@@ -3,10 +3,10 @@ const express = require('express'),
 	path = require('path'),
 	app = express();
 
-app.use(express.static(path.join(__dirname, '/')));
+app.use(express.static(path.join(__dirname, 'target')));
 
 app.get('/', function(req, res){
-	fs.readFile('index.html', function(error, content){
+	fs.readFile('target/index.html', function(error, content){
 		res.write(decodeURIComponent(content));
 		res.end();
 	});
