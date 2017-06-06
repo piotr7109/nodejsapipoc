@@ -3,7 +3,10 @@ const express = require('express'),
 	app = express();
 
 app.get('/', function(req, res){
-	res.send('Dupaaazzzzzzzzzz!');
+	fs.readFile('index.html', function(error, content){
+		res.write(decodeURIComponent(content));
+		res.end();
+	});
 });
 
 app.listen(3000);
