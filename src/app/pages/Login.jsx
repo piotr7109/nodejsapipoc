@@ -21,13 +21,13 @@ export default class Login extends React.Component {
             <form onSubmit={event => this.handleSubmit(event)} className="Form navbar-form">
                 <div className="form-row">
                     <label htmlFor="login-form" className="form-label">Login</label>
-                    <input id="login-input" required type="text" className="form-control form-input-control"
-                           name="login-input" placeholder="Login"/>
+                    <input className="form-control form-input-control"
+                           id="login-input" required type="text" name="login-input" placeholder="Login"/>
                 </div>
                 <div className="form-row">
                     <label htmlFor="password-input" className="form-label">Password</label>
-                    <input id="password-input" required type="text" className="form-control form-input-control"
-                           name="password-input" placeholder="Password"/>
+                    <input className="form-control form-input-control"
+                           id="password-input" required type="text" name="password-input" placeholder="Password"/>
                 </div>
                 <input type="submit" className="btn btn-primary" value="Log in"/>
             </form>
