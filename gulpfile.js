@@ -4,7 +4,10 @@ const gulp = require('gulp'),
     webpack = require('webpack'),
     webpackConfig = require('./webpack.config.js');
 
-gulp.task('watch', () => gulp.watch(['src/app/**/*.{js,jsx}'], ['build-js']));
+gulp.task('watch', () => {
+    gulp.start('build-js');
+    gulp.watch(['src/app/**/*.{js,jsx}'], ['build-js'])
+});
 
 gulp.task('build', () => gulp.start('build-js'));
 
