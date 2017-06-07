@@ -1,8 +1,8 @@
 const webpack = require('webpack'),
     happypack = require('happypack'),
     path = require('path'),
-    APP_DIR = path.resolve(__dirname, 'src/app');
-BUILD_DIR = path.resolve(__dirname, 'src/target');
+    APP_DIR = path.resolve(__dirname, 'src/app'),
+    BUILD_DIR = path.resolve(__dirname, 'src/target');
 
 module.exports = {
     entry: APP_DIR + '/index.jsx',
