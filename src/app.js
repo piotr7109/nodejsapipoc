@@ -1,16 +1,20 @@
 const express = require('express'),
-	fs = require('fs'),
-	path = require('path'),
-	app = express();
+    app = express(),
+    fs = require('fs');
 
-app.use(express.static(path.join(__dirname, 'target')));
-
-app.get('/', function(req, res){
-	fs.readFile('target/index.html', function(error, content){
-		res.write(decodeURIComponent(content));
-		res.end();
-	});
+app.get('/', function (req, res) {
+    fs.readFile(__dirname + 'target/css/' + 'index.html', 'utf8', function (err, data) {
+        res.end(data);
+    })
+}).get('/users', function (req, res) {
+    fs.readFile(__dirname + '/' + 'users.json', 'utf8', function (err, data) {
+        res.end(data);
+    });
 });
 
-app.listen(3000);
-console.log('Running...');
+const server = app.listen(3000, function () {
+    const host = server.address().address,
+        port = server.address().port;
+
+    console.log('Listening at http://%s:%s', host, port)
+});
