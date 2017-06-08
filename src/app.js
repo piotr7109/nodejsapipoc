@@ -1,9 +1,11 @@
 const express = require('express'),
     app = express(),
+    path = require('path'),
     fs = require('fs');
 
+app.use(express.static(path.join(__dirname, 'target')));
 app.get('/', function (req, res) {
-    fs.readFile(__dirname + 'target/css/' + 'index.html', 'utf8', function (err, data) {
+    fs.readFile(__dirname + '/' + 'index.html', 'utf8', function (err, data) {
         res.end(data);
     })
 }).get('/users', function (req, res) {
