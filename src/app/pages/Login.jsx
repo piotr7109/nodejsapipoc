@@ -5,7 +5,6 @@ import * as axios from 'axios';
 
 export default class Login extends React.Component {
     componentWillMount() {
-        window.localStorage.clear();//TO REMOVE
         this.state = {mode: 0};
         if (localStorage.getItem('userId') !== null) {
             this.updateMode(2);
