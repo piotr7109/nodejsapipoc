@@ -1,4 +1,6 @@
 import React from 'react';
+import serialize from 'form-serialize';
+import * as axios from 'axios';
 
 export default class Login extends React.Component {
 
@@ -12,8 +14,20 @@ export default class Login extends React.Component {
     }
 
     handleSubmit(event) {
-        this.updateMode(1);
         event.preventDefault();
+        axios
+            .post('/user/login', this.getFormData(event))
+            .then(result => console.log(result));
+    }
+
+    getFormData(event) {
+        const target = event.target,
+            data = serialize(target, {hash: true}),
+            formData:FormData = new FormData();
+
+        formData.append('userData', JSON.stringify(data));
+
+        return formData;
     }
 
     getForm() {
@@ -22,12 +36,12 @@ export default class Login extends React.Component {
                 <div className="form-row">
                     <label htmlFor="login-form" className="form-label">Login</label>
                     <input className="form-control form-input-control"
-                           id="login-input" required type="text" name="login-input" placeholder="Login"/>
+                           id="login-input" required type="text" name="login" placeholder="Login"/>
                 </div>
                 <div className="form-row">
                     <label htmlFor="password-input" className="form-label">Password</label>
                     <input className="form-control form-input-control"
-                           id="password-input" required type="text" name="password-input" placeholder="Password"/>
+                           id="password-input" required type="text" name="password" placeholder="Password"/>
                 </div>
                 <input type="submit" className="btn btn-primary" value="Log in"/>
             </form>
