@@ -1,13 +1,14 @@
 import React from 'react';
+import {Link} from 'react-router';
 import serialize from 'form-serialize';
 import * as axios from 'axios';
 
 export default class Login extends React.Component {
     componentWillMount() {
-        window.localStorage.clear();//TO REMOVE
+        //window.localStorage.clear();//TO REMOVE
         this.state = {mode: 0};
         if (localStorage.getItem('userId') !== null) {
-            this.updateMode(3);
+            this.updateMode(2);
         }
     }
 
@@ -56,22 +57,44 @@ export default class Login extends React.Component {
         )
     }
 
+    getHomePageLink() {
+        return (
+            <Link className="menu-item-link" to="/">
+                Back to Homepage
+            </Link>
+        );
+    }
+
     render() {
+        const formTemplate = this.getForm();
+
         switch (this.state.mode) {
             case 0:
-                return this.getForm();
+                return formTemplate;
                 break;
             case 1:
-                return <div className="alert alert-success">Succesfully logged in!</div>;
+                return (
+                    <div>
+                        <div className="alert alert-success">Succesfully logged in!</div>
+                        {this.getHomePageLink()}
+                    </div>
+                );
                 break;
             case 2:
-                return <div>Success</div>;
-                break;
-            case 3:
-                return <div className="alert alert-warning">You are already logged in!</div>;
+                return (
+                    <div>
+                        <div className="alert alert-warning">You are already logged in!</div>
+                        {this.getHomePageLink()}
+                    </div>
+                );
                 break;
             case -1:
-                return <div className="alert alert-danger">Enter a valid credentials</div>;
+                return (
+                    <div>
+                        <div className="alert alert-danger">Enter a valid credentials</div>
+                        {formTemplate}
+                    </div>
+                );
                 break;
             case -10:
                 return <div>Loading</div>;
