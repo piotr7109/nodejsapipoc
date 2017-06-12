@@ -5,32 +5,15 @@ const express = require('express'),
 
 app.use(express.static(path.join(__dirname, 'target')));
 
-var user = {
-    "user4" : {
-        "name" : "mohit",
-        "password" : "password4",
-        "profession" : "teacher",
-        "id": 4
-    }
-};
-
-app.get('/addUser', function (req, res) {
-    fs.readFile( __dirname + '/' + 'users.json', 'utf8', function (err, data) {
-        data = JSON.parse( data );
-        data["user4"] = user["user4"];
-        console.log( data );
-        res.end( JSON.stringify(data));
-    });
-});
-
 app.get('/', function (req, res) {
     fs.readFile(__dirname + '/' + 'index.html', 'utf8', function (err, data) {
         res.end(data);
     })
-}).get('/users', function (req, res) {
-    fs.readFile(__dirname + '/' + 'users.json', 'utf8', function (err, data) {
-        res.end(data);
-    });
+});
+
+app.post('/user/login', function (req, res) {
+    res.send({id: 666});
+    res.end();
 });
 
 const server = app.listen(3000, function () {
