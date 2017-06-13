@@ -20,6 +20,7 @@ export default class Login extends React.Component {
         axios
             .post('/user/login', this.getFormData(event))
             .then(result => {
+                console.log(result);
                 const userId = result.data.id;
 
                 if (userId) {
