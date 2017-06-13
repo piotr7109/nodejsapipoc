@@ -4,6 +4,7 @@ import {Router, Route, hashHistory} from 'react-router';
 import Template from './template/Template';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 class App extends React.Component {
     render() {
@@ -12,6 +13,7 @@ class App extends React.Component {
                 <Route component={Template}>
                     <Route path="/" component={Home}/>
                     <Route path="/login" component={Login}/>
+                    <Route path="/register" component={Register}/>
                 </Route>
             </Router>
         );

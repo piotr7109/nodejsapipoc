@@ -2,18 +2,19 @@ import React from 'react';
 import {Link} from 'react-router';
 
 export default class Menu extends React.Component {
-    getLoginControls() {
+    render() {
         if (localStorage.getItem('userId') !== null) {
-            return <Link to="/" onClick={() => localStorage.removeItem('userId')}>Logout</Link>;
+            return (
+                <div className="btn-group">
+                    <Link className="btn btn-danger" to="/" onClick={() => localStorage.removeItem('userId')}>Sign out</Link>
+                </div>
+            );
         }
 
-        return <Link to="/login">Login</Link>;
-    }
-
-    render() {
         return (
-            <div>
-                {this.getLoginControls()}
+            <div className="btn-group">
+                <Link className="btn btn-success" to="/login">Sign in</Link>
+                <Link className="btn btn-primary" to="/register">Register</Link>
             </div>
         );
     }
