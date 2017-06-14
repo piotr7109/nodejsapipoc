@@ -6,10 +6,7 @@ import * as axios from 'axios';
 export default class CreateArticleForm extends React.Component {
     componentWillMount() {
         this.formControls = [
-            {name: "title", textContent: "Title"},
-            {name: "description", textContent: "Description"},
-            {name: "author", textContent: "Author"},
-            {name: "introduction", textContent: "Introduction"}
+            {name: "title", textContent: "Title"}
         ];
         this.state = {mode: 0};
         this.articleId = null;
@@ -25,8 +22,10 @@ export default class CreateArticleForm extends React.Component {
             .post('/article/create', this.getFormData(event))
             .then(result => {
                 this.articleId = result.data.articleId;
-                this.updateMode(1);
-            });
+                return 1;
+            })
+            .catch(error => -2)
+            .then(mode => this.updateMode(mode));
     }
 
     getFormData(event) {
@@ -66,6 +65,14 @@ export default class CreateArticleForm extends React.Component {
                     <div>
                         <div className="alert alert-success">Article added!</div>
                         <Link to={`/article/${this.articleId}`}>See it</Link>
+                    </div>
+                );
+                break;
+            case -2:
+                return (
+                    <div>
+                        <div className="alert alert-danger">Service error</div>
+                        {formTemplate}
                     </div>
                 );
                 break;

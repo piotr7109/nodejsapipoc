@@ -20,17 +20,21 @@ export default class Login extends React.Component {
         axios
             .post('/user/login', this.getFormData(event))
             .then(result => {
-                console.log(result);
-                const userId = result.data.id;
+                localStorage.setItem('userId', result.data);
 
-                if (userId) {
-                    localStorage.setItem('userId', userId);
-                    return 1;
+                return 1;
+            })
+            .catch(error => {
+                const errorRes = error.response;
+
+                if (errorRes && errorRes.status === 401) {
+                    return -1;
                 }
 
-                return -1;
+                return -2;
             })
             .then(mode => this.updateMode(mode));
+
     }
 
     getFormData(event) {
@@ -92,6 +96,14 @@ export default class Login extends React.Component {
                 return (
                     <div>
                         <div className="alert alert-danger">Enter a valid credentials</div>
+                        {formTemplate}
+                    </div>
+                );
+                break;
+            case -2:
+                return (
+                    <div>
+                        <div className="alert alert-danger">Dziwny błąd</div>
                         {formTemplate}
                     </div>
                 );

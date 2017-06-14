@@ -17,10 +17,15 @@ export default class Register extends React.Component {
         event.preventDefault();
         axios
             .post('/user/register', this.getFormData(event))
-            .then(result => {
-                const userId = result.data.id;
+            .then(() => 1)
+            .catch(error => {
+                const errorRes = error.response;
 
-                return userId ? 1 : -1;
+                if (errorRes && errorRes.status === 401) {
+                    return -1;
+                }
+
+                return -2;
             })
             .then(mode => this.updateMode(mode));
     }
@@ -49,6 +54,14 @@ export default class Register extends React.Component {
         )
     }
 
+    getHomePageLink() {
+        return (
+            <Link className="menu-item-link" to="/">
+                Back to Homepage
+            </Link>
+        );
+    }
+
     render() {
         const formTemplate = this.getForm();
 
@@ -68,6 +81,14 @@ export default class Register extends React.Component {
                 return (
                     <div>
                         <div className="alert alert-danger">User already exists!</div>
+                        {formTemplate}
+                    </div>
+                );
+                break;
+            case -2:
+                return (
+                    <div>
+                        <div className="alert alert-danger">Service error</div>
                         {formTemplate}
                     </div>
                 );
