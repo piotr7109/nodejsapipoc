@@ -22,7 +22,7 @@ export default class CreateArticleForm extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         axios
-            .post('/articles/create', this.getFormData(event))
+            .post('/article/create', this.getFormData(event))
             .then(result => {
                 this.articleId = result.data.articleId;
                 this.updateMode(1);
