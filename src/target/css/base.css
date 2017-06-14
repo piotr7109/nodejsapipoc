@@ -46,3 +46,7 @@ body {
     width: 300px;
     display: inline-block;
 }
+
+.article {
+    text-align: left;
+}

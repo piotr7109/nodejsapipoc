@@ -6,10 +6,12 @@ import * as axios from 'axios';
 export default class CreateArticleForm extends React.Component {
     componentWillMount() {
         this.formControls = [
-            {name: "title", textContent: "Title"}
+            {name: "title", textContent: "Title"},
+            {name: "description", textContent: "Description"},
+            {name: "author", textContent: "Author"},
+            {name: "introduction", textContent: "Introduction"}
         ];
         this.state = {mode: 0};
-        this.articleId = null;
     }
 
     updateMode(mode) {
