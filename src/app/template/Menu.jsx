@@ -8,6 +8,7 @@ export default class Menu extends React.Component {
                 <div className="btn-group">
                     <Link className="btn btn-danger" to="/" onClick={() => localStorage.removeItem('userId')}>Sign out</Link>
                     <Link className="btn btn-success" to="/articles/create">Add Article</Link>
+                    <Link className="btn btn-success" to="/articles/list">Articles List</Link>
                 </div>
             );
         }

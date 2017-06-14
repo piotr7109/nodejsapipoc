@@ -50,3 +50,7 @@ body {
 .article {
     text-align: left;
 }
+
+.articles-list .article {
+    padding: 20px;
+}

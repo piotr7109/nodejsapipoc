@@ -16,22 +16,18 @@ export default class Article extends React.Component {
                 return 0;
             })
             .catch(() => -1)
-            .then(mode => this.updateMode(mode));
-    }
-
-    updateMode(mode) {
-        this.setState({mode});
+            .then(mode => this.setState({mode}));
     }
 
     getArticleMarkup() {
         return (
-            <div className="article jumbotron">
+            <article className="article jumbotron">
                 <div className="container">
                     <h1>{this.article.title}</h1>
                     <p>{this.article.description}</p>
                     <span className="label label-info">Author: {this.article.author}</span>
                 </div>
-            </div>
+            </article>
         );
     }
 

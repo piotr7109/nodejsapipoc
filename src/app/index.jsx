@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import CreateArticleForm from './pages/articles/CreateArticleForm';
 import Article from './pages/articles/Article';
+import ArticlesList from './pages/articles/ArticlesList';
 
 class App extends React.Component {
     render() {
@@ -18,6 +19,7 @@ class App extends React.Component {
                     <Route path="/register" component={Register}/>
                     <Route path="/articles/create" component={CreateArticleForm}/>
                     <Route path="/article/:id" component={Article}/>
+                    <Route path="/articles/list" component={ArticlesList}/>
                 </Route>
             </Router>
         );
