@@ -5,7 +5,8 @@ const express = require('express'),
     fs = require('fs');
 let uniqid = require('uniqid');
 
-const db = new JsonDB("myDB", true, true);
+const usersDB = new JsonDB("usersDB", true, true),
+    articlesDB = new JsonDB("articlesDB", true, true);
 
 app.use(express.static(path.join(__dirname, 'target')));
 app.get('/', (req, res) => {
@@ -20,7 +21,7 @@ app.post('/user/login', (req, res) => {
         const regData = JSON.parse(data.toString()),
             login = regData.login,
             password = regData.password,
-            allData = db.getData("/");
+            allData = usersDB.getData("/");
 
         for (let prop in allData) {
             if (allData[prop].login === login && allData[prop].password === password) {
@@ -32,7 +33,7 @@ app.post('/user/login', (req, res) => {
             res.send(tempId);
             res.end();
         } else {
-            res.send({msg: "Unknown user", status: 403});
+            res.status('401').send('Unknown user');
             res.end();
         }
     });
@@ -43,7 +44,7 @@ app.post('/user/register', (req, res) => {
         let tempId;
         const regData = JSON.parse(data.toString()),
             login = regData.login,
-            allData = db.getData("/");
+            allData = usersDB.getData("/");
 
         for (let prop in allData) {
             if (allData[prop].login === login) {
@@ -52,15 +53,27 @@ app.post('/user/register', (req, res) => {
         }
 
         if (tempId) {
-            res.send({msg: "User already exist", status: 403});
+            res.status('401').send('User already exist');
             res.end();
         } else {
             let id = uniqid('id-');
 
-            db.push('/'+id, regData);
+            usersDB.push('/' + id, regData);
             res.send(id);
             res.end();
         }
+    });
+});
+
+app.post('/article/create', (req, res) => {
+    req.on('data', (data) => {
+        const articleData = JSON.parse(data.toString());
+
+        articlesDB.push(articleData);
+
+        const allData = articlesDB.getData("/");
+        res.send(allData);
+        res.end();
     });
 });
 
