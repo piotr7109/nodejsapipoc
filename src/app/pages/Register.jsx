@@ -1,7 +1,7 @@
-import React from 'react';
-import {Link} from 'react-router';
-import serialize from 'form-serialize';
-import * as axios from 'axios';
+import React from "react";
+import {Link} from "react-router";
+import serialize from "form-serialize";
+import * as axios from "axios";
 
 export default class Register extends React.Component {
 
@@ -16,7 +16,7 @@ export default class Register extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         axios
-            .post('/user/register', this.getFormData(event))
+            .post("/user/register", this.getFormData(event))
             .then(() => 1)
             .catch(error => {
                 const errorRes = error.response;

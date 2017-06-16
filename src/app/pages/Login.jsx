@@ -1,12 +1,12 @@
-import React from 'react';
-import {Link} from 'react-router';
-import serialize from 'form-serialize';
-import * as axios from 'axios';
+import React from "react";
+import {Link} from "react-router";
+import serialize from "form-serialize";
+import * as axios from "axios";
 
 export default class Login extends React.Component {
     componentWillMount() {
         this.state = {mode: 0};
-        if (localStorage.getItem('userId') !== null) {
+        if (localStorage.getItem("userId") !== null) {
             this.updateMode(2);
         }
     }
@@ -18,9 +18,9 @@ export default class Login extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         axios
-            .post('/user/login', this.getFormData(event))
+            .post("/user/login", this.getFormData(event))
             .then(result => {
-                localStorage.setItem('userId', result.data);
+                localStorage.setItem("userId", result.data);
 
                 return 1;
             })

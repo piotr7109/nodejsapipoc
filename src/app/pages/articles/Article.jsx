@@ -1,5 +1,5 @@
-import React from 'react';
-import * as axios from 'axios';
+import React from "react";
+import * as axios from "axios";
 
 export default class Article extends React.Component {
 

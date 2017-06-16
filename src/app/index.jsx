@@ -1,13 +1,13 @@
-import React from 'react';
-import {render} from 'react-dom';
-import {Router, Route, hashHistory} from 'react-router';
-import Template from './template/Template';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import CreateArticleForm from './pages/articles/CreateArticleForm';
-import Article from './pages/articles/Article';
-import ArticlesList from './pages/articles/ArticlesList';
+import React from "react";
+import {render} from "react-dom";
+import {Router, Route, hashHistory} from "react-router";
+import Template from "./template/Template";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import CreateArticleForm from "./pages/articles/CreateArticleForm";
+import Article from "./pages/articles/Article";
+import ArticlesList from "./pages/articles/ArticlesList";
 
 class App extends React.Component {
     render() {
@@ -26,4 +26,4 @@ class App extends React.Component {
     }
 }
 
-render(<App/>, document.getElementById('app'));
+render(<App/>, document.getElementById("app"));
