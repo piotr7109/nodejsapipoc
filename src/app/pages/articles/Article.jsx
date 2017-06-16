@@ -10,7 +10,7 @@ export default class Article extends React.Component {
     }
 
     loadArticle() {
-        axios.get(`article/${this.id}`)
+        axios.get(`/article/${this.id}`)
             .then(response => {
                 this.article = response.data;
                 return 0;
