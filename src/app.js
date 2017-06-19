@@ -16,8 +16,12 @@ app.get('/', (req, res) => {
 });
 
 app.get('/articles', (req, res) => {
-    const allData = articlesDB.getData("/");
+    const tempData = articlesDB.getData("/");
+    let allData = [];
 
+    for(let prop in tempData){
+        allData.push(tempData[prop]);
+    }
     res.send(allData);
     res.end();
 });
