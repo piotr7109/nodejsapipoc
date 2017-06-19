@@ -16,11 +16,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/articles', (req, res) => {
-    req.on('data', () => {
-        const allData = articlesDB.getData("/");
-        res.send(allData);
-        res.end();
-    })
+    const allData = articlesDB.getData("/");
+
+    res.send(allData);
+    res.end();
 });
 
 app.post('/user/login', (req, res) => {
