@@ -5,13 +5,21 @@ const express = require('express'),
     fs = require('fs');
 let uniqid = require('uniqid');
 
-const usersDB = new JsonDB("usersDB", true, true),
-    articlesDB = new JsonDB("articlesDB", true, true);
+const usersDB = new JsonDB("db/usersDB", true, true),
+    articlesDB = new JsonDB("db/articlesDB", true, true);
 
 app.use(express.static(path.join(__dirname, 'target')));
 app.get('/', (req, res) => {
     fs.readFile(__dirname + '/' + 'index.html', 'utf-8', (err, data) => {
         res.end(data);
+    })
+});
+
+app.get('/articles', (req, res) => {
+    req.on('data', () => {
+        const allData = articlesDB.getData("/");
+        res.send(allData);
+        res.end();
     })
 });
 
@@ -24,7 +32,7 @@ app.post('/user/login', (req, res) => {
             allData = usersDB.getData("/");
 
         for (let prop in allData) {
-            if (allData[prop].login === login && allData[prop].password === password) {
+            if (allData[prop].login === login && allData[prop].password == password) {
                 tempId = prop;
             }
         }
@@ -68,11 +76,10 @@ app.post('/user/register', (req, res) => {
 app.post('/article/create', (req, res) => {
     req.on('data', (data) => {
         const articleData = JSON.parse(data.toString());
+        let id = uniqid();
 
-        articlesDB.push(articleData);
-
-        const allData = articlesDB.getData("/");
-        res.send(allData);
+        articlesDB.push('/' + id, articleData);
+        res.send(id);
         res.end();
     });
 });

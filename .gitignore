@@ -2,7 +2,5 @@
 /.idea/
 /node_modules/
 /src/target/bundle.js
-/src/articlesDB.json
-/src/usersDB.json
-/usersDB.json
-/articlesDB.json
+/src/db/articlesDB.json
+/src/db/usersDB.json
