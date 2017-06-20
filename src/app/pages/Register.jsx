@@ -68,7 +68,6 @@ export default class Register extends React.Component {
         switch (this.state.mode) {
             case 0:
                 return formTemplate;
-                break;
             case 1:
                 return (
                     <div>
@@ -76,7 +75,6 @@ export default class Register extends React.Component {
                         {this.getHomePageLink()}
                     </div>
                 );
-                break;
             case -1:
                 return (
                     <div>
@@ -84,7 +82,6 @@ export default class Register extends React.Component {
                         {formTemplate}
                     </div>
                 );
-                break;
             case -2:
                 return (
                     <div>
@@ -92,10 +89,8 @@ export default class Register extends React.Component {
                         {formTemplate}
                     </div>
                 );
-                break;
             case -10:
                 return <div>Loading</div>;
-                break;
         }
     }
 }

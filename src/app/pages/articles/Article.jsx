@@ -35,13 +35,10 @@ export default class Article extends React.Component {
         switch (this.state.mode) {
             case 0:
                 return this.getArticleMarkup();
-                break;
             case -1:
                 return <div className="alert alert-danger">Article not found</div>;
-                break;
             case -10:
                 return <div className="alert alert-waring">Loading</div>;
-                break;
         }
     }
 }

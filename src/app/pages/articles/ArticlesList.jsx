@@ -50,13 +50,10 @@ export default class ArticlesList extends React.Component {
         switch (this.state.mode) {
             case 0:
                 return this.getArticles();
-                break;
             case -1:
                 return <div className="alert alert-danger">Articles list cannot be loaded</div>;
-                break;
             case -10:
                 return <div className="alert alert-waring">Loading</div>;
-                break;
 
         }
     }

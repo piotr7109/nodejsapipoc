@@ -61,7 +61,6 @@ export default class CreateArticleForm extends React.Component {
         switch (this.state.mode) {
             case 0:
                 return formTemplate;
-                break;
             case 1:
                 return (
                     <div>
@@ -69,7 +68,6 @@ export default class CreateArticleForm extends React.Component {
                         <Link to={`/article/${this.articleId}`}>See it</Link>
                     </div>
                 );
-                break;
             case -2:
                 return (
                     <div>
@@ -77,10 +75,8 @@ export default class CreateArticleForm extends React.Component {
                         {formTemplate}
                     </div>
                 );
-                break;
             case -10:
                 return <div>Loading</div>;
-                break;
         }
     }
 }
