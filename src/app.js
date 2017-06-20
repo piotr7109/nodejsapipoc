@@ -19,8 +19,10 @@ app.get('/articles', (req, res) => {
     const tempData = articlesDB.getData("/");
     let allData = [];
 
-    for(let prop in tempData){
-        allData.push(tempData[prop]);
+    for (let prop in tempData) {
+        if (tempData.hasOwnProperty(prop)) {
+            allData.push(Object.assign(tempData[prop], {id: prop}));
+        }
     }
     res.send(allData);
     res.end();
