@@ -26,6 +26,13 @@ app.get('/articles', (req, res) => {
     res.end();
 });
 
+app.get('/article/:id', (req, res) => {
+    const tempData = articlesDB.getData("/"),
+        id = req.params.id;
+    res.send(tempData.id);
+    res.end();
+});
+
 app.post('/user/login', (req, res) => {
     req.on('data', (data) => {
         let tempId;
