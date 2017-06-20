@@ -31,8 +31,14 @@ app.get('/articles', (req, res) => {
 app.get('/article/:id', (req, res) => {
     const tempData = articlesDB.getData("/"),
         id = req.params.id;
-    res.send(tempData.id);
-    res.end();
+
+    if (tempData[id]) {
+        res.send(tempData[id]);
+        res.end();
+    } else {
+        res.status('401').send('Wrong ID');
+        res.end();
+    }
 });
 
 app.post('/user/login', (req, res) => {
