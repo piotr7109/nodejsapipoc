@@ -1,16 +1,22 @@
-const express = require('express'),
-    app = express(),
-    path = require('path'),
-    JsonDB = require('node-json-db'),
-    fs = require('fs');
-let uniqid = require('uniqid');
+const express = require('express');
+const app = express();
+const path = require('path');
+const bodyParser = require('body-parser');
+const JsonDB = require('node-json-db');
+const fs = require('fs');
+const uniqid = require('uniqid');
 
-const usersDB = new JsonDB("db/usersDB", true, true),
-    articlesDB = new JsonDB("db/articlesDB", true, true);
+const usersDB = new JsonDB("db/usersDB", true, true);
+const articlesDB = new JsonDB("db/articlesDB", true, true);
 
 app.use(express.static(path.join(__dirname, 'target')));
+app.use(bodyParser.json()).use(bodyParser.urlencoded({ extended: true }));
+
 app.get('/', (req, res) => {
     fs.readFile(__dirname + '/' + 'index.html', 'utf-8', (err, data) => {
+        if (err) {
+            throw err;
+        }
         res.end(data);
     })
 });
@@ -36,75 +42,67 @@ app.get('/article/:id', (req, res) => {
         res.send(tempData[id]);
         res.end();
     } else {
-        res.status('401').send('Wrong ID');
+        res.status(401).send('Wrong ID');
         res.end();
     }
 });
 
 app.post('/user/login', (req, res) => {
-    req.on('data', (data) => {
-        let tempId;
-        const regData = JSON.parse(data.toString()),
-            login = regData.login,
-            password = regData.password,
-            allData = usersDB.getData("/");
+    let tempId;
+    const { login, password } = req.body,
+        allData = usersDB.getData("/");
 
-        for (let prop in allData) {
-            if (allData[prop].login === login && allData[prop].password == password) {
-                tempId = prop;
-            }
+    for (let prop in allData) {
+        if (allData[prop].login === login && allData[prop].password == password) {
+            tempId = prop;
         }
+    }
 
-        if (tempId) {
-            res.send(tempId);
-            res.end();
-        } else {
-            res.status('401').send('Unknown user');
-            res.end();
-        }
-    });
+    if (tempId) {
+        res.send(tempId);
+        res.end();
+    } else {
+        res.status(401).send('Unknown user');
+        res.end();
+    }
 });
 
 app.post('/user/register', (req, res) => {
-    req.on('data', (data) => {
-        let tempId;
-        const regData = JSON.parse(data.toString()),
-            login = regData.login,
-            allData = usersDB.getData("/");
+    let tempId;
+    const regData = req.body,
+        login = regData.login,
+        allData = usersDB.getData("/");
 
-        for (let prop in allData) {
-            if (allData[prop].login === login) {
-                tempId = prop;
-            }
+    for (let prop in allData) {
+        if (allData[prop].login === login) {
+            tempId = prop;
         }
+    }
 
-        if (tempId) {
-            res.status('401').send('User already exist');
-            res.end();
-        } else {
-            let id = uniqid('id-');
+    if (tempId) {
+        res.status(401).send('User already exist');
+        res.end();
+    } else {
+        const id = uniqid('id-');
 
-            usersDB.push('/' + id, regData);
-            res.send(id);
-            res.end();
-        }
-    });
+        usersDB.push('/' + id, regData);
+        res.send(id);
+        res.end();
+    }
 });
 
 app.post('/article/create', (req, res) => {
-    req.on('data', (data) => {
-        const articleData = JSON.parse(data.toString());
-        let id = uniqid();
+    const articleData = req.body,
+    id = uniqid();
 
-        articlesDB.push('/' + id, articleData);
-        res.send(id);
-        res.end();
-    });
+    articlesDB.push('/' + id, articleData);
+    res.send(id);
+    res.end();
 });
 
 const server = app.listen(3000, () => {
     const host = server.address().address,
         port = server.address().port;
 
-    console.log('Listening at http://%s:%s', host, port)
+    console.log('Running on', host, port);
 });
